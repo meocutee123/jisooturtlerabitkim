@@ -19,7 +19,6 @@
 						"type": "ParquetSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
 							"enablePartitionDiscovery": false
 						}
 					},
