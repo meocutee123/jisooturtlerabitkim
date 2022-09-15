@@ -1,0 +1,9 @@
+{
+	"name": "jisooturtlerabitkim",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b272aedc-774b-46a0-abef-0f7e605c0a3f",
+		"tenantId": "9aace06c-5b15-4d04-bc42-591bb4cb21e7"
+	}
+}
