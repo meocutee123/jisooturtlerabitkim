@@ -1,0 +1,9 @@
+{
+	"name": "jisooturtulerabitkim",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "4a992fc4-36f2-4a5c-8d1d-22dc629af1ea",
+		"tenantId": "9aace06c-5b15-4d04-bc42-591bb4cb21e7"
+	}
+}
