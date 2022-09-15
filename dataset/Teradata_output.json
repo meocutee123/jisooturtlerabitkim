@@ -1,0 +1,19 @@
+{
+	"name": "Teradata_output",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "momo"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
