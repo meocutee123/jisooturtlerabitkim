@@ -5,11 +5,20 @@
 		"factoryName": {
 			"value": "jisooturtlerabitkim"
 		},
+		"AzureDatabricks_accessToken": {
+			"value": ""
+		},
 		"AzureStorageLinkedService_connectionString": {
 			"value": ""
 		},
-		"jennie_properties_typeProperties_baseUrl": {
+		"AzureDatabricks_properties_typeProperties_existingClusterId": {
+			"value": "0915-063305-g9dfqm98"
+		},
+		"JennieKeyVaultLinkedService_properties_typeProperties_baseUrl": {
 			"value": "https://jennierubyjane.vault.azure.net/"
+		},
+		"Copy parquet files_properties_typeProperties_scope": {
+			"value": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
 		},
 		"containerUri": {
 			"value": ""

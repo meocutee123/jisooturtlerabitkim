@@ -7,13 +7,25 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "jisooturtlerabitkim"
 		},
+		"AzureDatabricks_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks'"
+		},
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
-		"jennie_properties_typeProperties_baseUrl": {
+		"AzureDatabricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0915-063305-g9dfqm98"
+		},
+		"JennieKeyVaultLinkedService_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://jennierubyjane.vault.azure.net/"
+		},
+		"Copy parquet files_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
 		},
 		"containerUri": {
 			"type": "string",
@@ -42,11 +54,20 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureDatabricks_accessToken": {
+						"value": "[parameters('AzureDatabricks_accessToken')]"
+					},
 					"AzureStorageLinkedService_connectionString": {
 						"value": "[parameters('AzureStorageLinkedService_connectionString')]"
 					},
-					"jennie_properties_typeProperties_baseUrl": {
-						"value": "[parameters('jennie_properties_typeProperties_baseUrl')]"
+					"AzureDatabricks_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks_properties_typeProperties_existingClusterId')]"
+					},
+					"JennieKeyVaultLinkedService_properties_typeProperties_baseUrl": {
+						"value": "[parameters('JennieKeyVaultLinkedService_properties_typeProperties_baseUrl')]"
+					},
+					"Copy parquet files_properties_typeProperties_scope": {
+						"value": "[parameters('Copy parquet files_properties_typeProperties_scope')]"
 					}
 				}
 			},
