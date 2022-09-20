@@ -96,7 +96,13 @@
 							"outputs": [
 								{
 									"referenceName": "Momo",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@split(item().name, '.')[0]",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
