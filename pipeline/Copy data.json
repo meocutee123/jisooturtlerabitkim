@@ -83,23 +83,6 @@
 					"referenceName": "AzureDatabricks",
 					"type": "LinkedServiceReference"
 				}
-			},
-			{
-				"name": "Foreach file in files",
-				"type": "ForEach",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "File name starts with user",
-							"type": "IfCondition",
-							"dependsOn": [],
-							"userProperties": []
-						}
-					]
-				}
 			}
 		],
 		"annotations": []
