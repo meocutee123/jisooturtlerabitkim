@@ -90,19 +90,19 @@
 							"inputs": [
 								{
 									"referenceName": "Mina",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@item().Name",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
 									"referenceName": "Momo",
-									"type": "DatasetReference",
-									"parameters": {
-										"FileName": {
-											"value": "@split(item().name, '.')[0]",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							]
 						}
