@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copy file from Mina to Momo",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
