@@ -195,7 +195,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "Copy file from Mina to Momo",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -280,7 +280,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "Copy parquet file",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -324,7 +324,10 @@
 								"referenceName": "Mina",
 								"type": "DatasetReference",
 								"parameters": {
-									"FileName": "*.parquet"
+									"FileName": {
+										"value": "@pipeline().parameters.TriggeringFile",
+										"type": "Expression"
+									}
 								}
 							}
 						],
