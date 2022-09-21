@@ -6,15 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "Copy individual file then change its name",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"TrigeringFile": "@trigger().outputs.body.fileName"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "I did what I needed done",
 					"type": "PipelineReference"
 				},
