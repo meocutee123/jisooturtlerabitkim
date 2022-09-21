@@ -26,6 +26,10 @@
 		"Copy parquet files_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
+		},
+		"Transform_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
 		}
 	},
 	"variables": {
@@ -33,14 +37,14 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Copy data')]",
+			"name": "[concat(parameters('factoryName'), '/Transform data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy from Mina to Momo",
-						"type": "Copy",
+						"name": "Get File Names",
+						"type": "GetMetadata",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -51,75 +55,68 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"source": {
-								"type": "ParquetSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"wildcardFileName": "*.parquet",
-									"enablePartitionDiscovery": false
-								}
-							},
-							"sink": {
-								"type": "ParquetSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "ParquetWriteSettings"
-								}
-							},
-							"enableStaging": false,
-							"validateDataConsistency": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "Mina",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
+							"dataset": {
 								"referenceName": "Momo",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"FileName": "*.parquet"
+								}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"enablePartitionDiscovery": false
 							}
-						]
+						}
 					},
 					{
-						"name": "Notebook",
-						"type": "DatabricksNotebook",
+						"name": "For each file in momo",
+						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Copy from Mina to Momo",
+								"activity": "Get File Names",
 								"dependencyConditions": [
 									"Succeeded"
 								]
 							}
 						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/anv@lebathien1196gmail.onmicrosoft.com/Spark Transfomation"
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks",
-							"type": "LinkedServiceReference"
+							"items": {
+								"value": "@activity('Get File Names').output.childItems",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Transform",
+									"type": "DatabricksNotebook",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/anv@lebathien1196gmail.onmicrosoft.com/Spark Transfomation",
+										"baseParameters": {
+											"MetadataOutput": {
+												"value": "@item().name",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
 						}
 					}
 				],
@@ -130,7 +127,6 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Mina')]",
 				"[concat(variables('factoryId'), '/datasets/Momo')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks')]"
 			]
@@ -144,11 +140,20 @@
 					"referenceName": "AzureStorageLinkedService",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"FileName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().FileName",
+							"type": "Expression"
+						},
 						"container": "mina"
 					},
 					"compressionCodec": "snappy"
@@ -221,11 +226,20 @@
 					"referenceName": "AzureStorageLinkedService",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"FileName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().FileName",
+							"type": "Expression"
+						},
 						"container": "momo"
 					},
 					"compressionCodec": "snappy"
@@ -344,7 +358,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "Copy data",
+							"referenceName": "Copy data then change file name",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -362,7 +376,177 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Copy data')]"
+				"[concat(variables('factoryId'), '/pipelines/Copy data then change file name')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy data then change file name')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "For each file in files",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get File Names",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get File Names').output.childItems",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Copy data",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "ParquetSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobStorageWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "Mina",
+											"type": "DatasetReference",
+											"parameters": {
+												"FileName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Momo",
+											"type": "DatasetReference",
+											"parameters": {
+												"FileName": {
+													"value": "@concat(\n    'momo-',\n    convertFromUtc(utcNow(), 'Eastern Standard Time'),\n    '.parquet'\n\n\n)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Get File Names",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "Mina",
+								"type": "DatasetReference",
+								"parameters": {
+									"FileName": "*.parquet"
+								}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"enablePartitionDiscovery": false
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"TransformedFileName": {
+						"type": "String"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Mina')]",
+				"[concat(variables('factoryId'), '/datasets/Momo')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Transform')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Transform data",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/momo/blobs/",
+					"blobPathEndsWith": ".parquet",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('Transform_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Transform data')]"
 			]
 		}
 	]

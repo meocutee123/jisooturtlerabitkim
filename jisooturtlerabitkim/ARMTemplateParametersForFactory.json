@@ -19,6 +19,9 @@
 		},
 		"Copy parquet files_properties_typeProperties_scope": {
 			"value": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
+		},
+		"Transform_properties_typeProperties_scope": {
+			"value": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
 		}
 	}
 }
