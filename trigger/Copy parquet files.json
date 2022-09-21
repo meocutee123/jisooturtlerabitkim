@@ -7,7 +7,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "Copy data",
+					"referenceName": "Transform data",
 					"type": "PipelineReference"
 				}
 			}
