@@ -39,11 +39,6 @@
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
 										"recursive": true,
-										"wildcardFolderPath": {
-											"value": "@split(item().name, '.')[0]",
-											"type": "Expression"
-										},
-										"wildcardFileName": "*.parquet",
 										"enablePartitionDiscovery": false
 									}
 								},
@@ -69,13 +64,25 @@
 							"inputs": [
 								{
 									"referenceName": "Mina",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
 									"referenceName": "Momo",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(\n    'momo-',\n    convertFromUtc(utcNow(), 'Eastern Standard Time'),\n    '.parquet'\n\n\n)",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -97,7 +104,10 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "Mina",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": "*.parquet"
+						}
 					},
 					"fieldList": [
 						"childItems"
