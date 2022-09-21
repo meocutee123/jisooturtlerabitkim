@@ -351,6 +351,9 @@
 						"type": "string"
 					}
 				},
+				"folder": {
+					"name": "Pipeline - Individual file"
+				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -399,6 +402,9 @@
 					"TriggeringFile": {
 						"type": "string"
 					}
+				},
+				"folder": {
+					"name": "Pipeline - Individual file"
 				},
 				"annotations": []
 			},
