@@ -114,11 +114,17 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					}
 				}
 			}
 		],
+		"parameters": {
+			"TriggeringFile": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
