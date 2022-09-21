@@ -1,0 +1,11 @@
+{
+	"name": "Copy individual file then change its name",
+	"properties": {
+		"parameters": {
+			"TrigeringFile": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}

@@ -12,6 +12,15 @@
 				"parameters": {
 					"TriggeringFile": "@trigger().outputs.body.fileName"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Copy individual file then change its name",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"TrigeringFile": "@trigger().outputs.body.fileName"
+				}
 			}
 		],
 		"type": "BlobEventsTrigger",
