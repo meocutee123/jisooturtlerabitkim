@@ -12,6 +12,15 @@
 				"parameters": {
 					"TrigeringFile": "@trigger().outputs.body.fileName"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "I did what I needed done",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"TriggeringFile": "@trigger().outputs.body.fileName"
+				}
 			}
 		],
 		"type": "BlobEventsTrigger",
