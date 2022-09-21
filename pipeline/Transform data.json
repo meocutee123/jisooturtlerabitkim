@@ -27,6 +27,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					}
 				}
@@ -80,6 +81,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "Pipeline - Trigger manually"
+		},
 		"annotations": []
 	}
 }

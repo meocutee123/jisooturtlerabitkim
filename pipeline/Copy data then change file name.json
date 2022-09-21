@@ -63,7 +63,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "Mina",
+									"referenceName": "Shuhua",
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
@@ -75,11 +75,11 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Momo",
+									"referenceName": "soojin",
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
-											"value": "@concat(\n    'momo-',\n    convertFromUtc(utcNow(), 'Eastern Standard Time'),\n    '.parquet'\n\n\n)",
+											"value": "@concat(\n    'soojin-',\n    convertFromUtc(utcNow(), 'Eastern Standard Time'),\n    '.parquet'\n\n\n)",
 											"type": "Expression"
 										}
 									}
@@ -103,7 +103,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "Mina",
+						"referenceName": "Shuhua",
 						"type": "DatasetReference",
 						"parameters": {
 							"FileName": "*.parquet"
@@ -124,6 +124,9 @@
 			"TriggeringFile": {
 				"type": "string"
 			}
+		},
+		"folder": {
+			"name": "Pipeline - Trigger manually"
 		},
 		"annotations": []
 	}
