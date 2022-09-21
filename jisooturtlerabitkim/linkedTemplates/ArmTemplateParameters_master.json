@@ -20,7 +20,16 @@
 		"Copy parquet files_properties_typeProperties_scope": {
 			"value": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
 		},
+		"Transform_properties_I dont wanna be me anymore_parameters_TriggeringFile": {
+			"value": "@trigger().outputs.body.fileName"
+		},
 		"Transform_properties_typeProperties_scope": {
+			"value": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
+		},
+		"Triggle on individual file_properties_I did what I needed done_parameters_TriggeringFile": {
+			"value": "@trigger().outputs.body.fileName"
+		},
+		"Triggle on individual file_properties_typeProperties_scope": {
 			"value": "/subscriptions/57f05374-ecea-4130-8e45-c05f9552cddf/resourceGroups/tuannghia/providers/Microsoft.Storage/storageAccounts/rosesarerosie"
 		},
 		"containerUri": {
