@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "Momo",
+						"referenceName": "Shuhua",
 						"type": "DatasetReference",
 						"parameters": {
 							"FileName": "*.parquet"
@@ -67,7 +67,7 @@
 								"notebookPath": "/Users/anv@lebathien1196gmail.onmicrosoft.com/Spark Transfomation",
 								"baseParameters": {
 									"MetadataOutput": {
-										"value": "@item().name",
+										"value": "''",
 										"type": "Expression"
 									}
 								}
